@@ -20,16 +20,14 @@ models_1<-caretList(x,y,methodList=c("svmLinear","rf"),
 
 #Test 2. We can use different tunning params for each model. We can also train more than one
 #model of each type. Note that we are training two rf models
-models_2<-caretList(x,y,methodList=c("svmLinear","rf"),
+models_2<-caretList(x,y,#methodList=c("svmLinear","rf"),
                     trControl=trainControl(method="cv",number=5,savePredictions="final"),
                     tuneList=list(
                       svmLinear=caretModelSpec(method="svmLinear", tuneGrid=data.frame(.C=c(1,10))),
                       rf1=caretModelSpec(method="rf", tuneGrid=data.frame(.mtry=c(2,4))),
                       rf2=caretModelSpec(method="rf", tuneGrid=data.frame(.mtry=c(8,10)))
                     ))
-#Note: This function should return 3 models but it returns 5 models (2 more using the default
-#tunegrid or caret...) With a small modification in the source code of caretList we can avoid the
-#training of this two models in order to save time
+#UPDATE: No need to pass a method list if you pass the tuneList. With this, we avoid creating the extra model.
 
 #Test 3. If our data is composed by samples, we can pass to the function this information
 #We  manually make 5 samples, each one with 30 examples (ten per class)
