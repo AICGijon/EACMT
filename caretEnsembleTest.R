@@ -2,6 +2,7 @@
 #First install caretEnsemble install.packages("caretEnsemble")
 
 #Load the library
+library(caret)
 library(caretEnsemble)
 
 #We use the iris dataset
